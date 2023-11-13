@@ -1,0 +1,10 @@
+services:
+  postgresql:
+    image: postgres
+    container_name: postgres-product-service
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: product_service
+    ports:
+      - 15432:5432

@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{75B7B949-0353-4E12-AA35-5B6E40F058D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{7B55B89D-3AAC-4871-A8E0-040ECF669412}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hohland_cblp.ProductService.Infrastructure", "src\hohland_cblp.ProductService.Infrastructure\hohland_cblp.ProductService.Infrastructure.csproj", "{D7F02E4D-5258-4FB0-BB73-9902494ED529}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hohland_cblp.ProductService", "src\hohland_cblp.ProductService\hohland_cblp.ProductService.csproj", "{4BF14FC5-0409-4144-957A-D0F068D1A73B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hohland_cblp.ProductService.Domain", "src\hohland_cblp.ProductService.Domain\hohland_cblp.ProductService.Domain.csproj", "{DD05D03D-FC84-436C-B72F-F0925BD92F3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7F02E4D-5258-4FB0-BB73-9902494ED529}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7F02E4D-5258-4FB0-BB73-9902494ED529}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7F02E4D-5258-4FB0-BB73-9902494ED529}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7F02E4D-5258-4FB0-BB73-9902494ED529}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BF14FC5-0409-4144-957A-D0F068D1A73B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BF14FC5-0409-4144-957A-D0F068D1A73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BF14FC5-0409-4144-957A-D0F068D1A73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BF14FC5-0409-4144-957A-D0F068D1A73B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD05D03D-FC84-436C-B72F-F0925BD92F3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD05D03D-FC84-436C-B72F-F0925BD92F3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD05D03D-FC84-436C-B72F-F0925BD92F3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD05D03D-FC84-436C-B72F-F0925BD92F3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D7F02E4D-5258-4FB0-BB73-9902494ED529} = {75B7B949-0353-4E12-AA35-5B6E40F058D6}
+		{4BF14FC5-0409-4144-957A-D0F068D1A73B} = {75B7B949-0353-4E12-AA35-5B6E40F058D6}
+		{DD05D03D-FC84-436C-B72F-F0925BD92F3A} = {75B7B949-0353-4E12-AA35-5B6E40F058D6}
+	EndGlobalSection
+EndGlobal
