@@ -5,6 +5,6 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: product_service
+      POSTGRES_DB: product_service_db
     ports:
       - 15432:5432
