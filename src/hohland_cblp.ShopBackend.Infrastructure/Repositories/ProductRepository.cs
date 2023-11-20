@@ -14,12 +14,12 @@ public class ProductRepository : PgRepository, IProductRepository
         _products = new Dictionary<long, Product>();
     }
 
-    public async Task<List<Product>> GetList()
+    public async Task<List<Product>> GetList(CancellationToken token)
     {
         return _products.Values.ToList();
     }
 
-    public async Task<bool> Insert(Product product)
+    public async Task<bool> Insert(Product product, CancellationToken token)
     {
         if (_products.ContainsKey(product.Id))
             return false;
@@ -27,7 +27,7 @@ public class ProductRepository : PgRepository, IProductRepository
         return _products.TryAdd(product.Id, product);
     }
 
-    public async Task<bool> Update(Product product)
+    public async Task<bool> Update(Product product, CancellationToken token)
     {
         if (!_products.ContainsKey(product.Id))
             return false;
@@ -36,12 +36,12 @@ public class ProductRepository : PgRepository, IProductRepository
         return true;
     }
 
-    public async Task<bool> Delete(Product product)
+    public async Task<bool> Delete(Product product, CancellationToken token)
     {
         return await DeleteById(product.Id);
     }
 
-    public async Task<bool> DeleteById(long id)
+    public async Task<bool> DeleteById(long id, CancellationToken token)
     {
         if (!_products.ContainsKey(id))
             return false;
@@ -50,7 +50,7 @@ public class ProductRepository : PgRepository, IProductRepository
         return true;
     }
 
-    public async Task<Product> GetById(long id)
+    public async Task<Product> GetById(long id, CancellationToken token)
     {
         if (!_products.ContainsKey(id))
             return null;

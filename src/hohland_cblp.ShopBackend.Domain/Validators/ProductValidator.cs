@@ -16,9 +16,8 @@ public class ProductValidator : AbstractValidator<Product>
             .MaximumLength(20);
         RuleFor(item => item.Price)
             .NotNull();
-        RuleFor(item => item.Weight)
-            .NotNull();
-        RuleFor(item => item.WarehouseId)
+        RuleFor(item => item.Currency)
+            .Length(3)
             .NotNull();
         RuleFor(item => item.CreationDate)
             .NotNull();

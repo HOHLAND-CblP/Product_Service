@@ -2,12 +2,10 @@ namespace hohland_cblp.ShopBackend.Domain.Entities;
 
 public record Product()
 {
-    
-    public long Id { get; set; }
-    public string Name { get; set; }
-    public float Price { get; set; }
-    public float Weight { get; set; }
-    public ProductType ProductType { get; set; }
-    public DateTime CreationDate { get; set; }
-    public long WarehouseId { get; set; }
+    public long Id { get; init; }
+    public string Name { get; init; }
+    public float Price { get; init; }
+    public string Currency { get; init; }
+    public ProductType ProductType { get; init; }
+    public DateTime CreationDate { get; init; }
 }
