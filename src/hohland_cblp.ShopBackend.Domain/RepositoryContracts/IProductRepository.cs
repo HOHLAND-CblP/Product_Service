@@ -5,10 +5,11 @@ namespace hohland_cblp.ShopBackend.Domain.RepositoryContracts;
 
 public interface IProductRepository
 {
-    Task<List<Product>> GetList();
-    Task<bool> Insert(Product product);
-    Task<bool> Update(Product product);
-    Task<bool> Delete(Product product);
-    Task<bool> DeleteById(long id);
-    Task<Product> GetById(long id);
+    Task<List<Product>> GetList(CancellationToken token);
+    Task<List<long>> Add(List<Product> products, CancellationToken token);
+    Task Insert(Product product, CancellationToken token);
+    Task Update(Product product, CancellationToken token);
+    Task Delete(Product product, CancellationToken token);
+    Task DeleteById(long id, CancellationToken token);
+    Task<Product> GetById(long id, CancellationToken token);
 }
