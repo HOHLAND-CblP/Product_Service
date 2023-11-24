@@ -32,7 +32,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Entities\" />
+      <Compile Remove="Entities\**" />
+      <EmbeddedResource Remove="Entities\**" />
+      <None Remove="Entities\**" />
+      <Protobuf Remove="Entities\**" />
     </ItemGroup>
     
 </Project>

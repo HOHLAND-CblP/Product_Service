@@ -12,7 +12,7 @@ public class InitSchema : Migration
                                 product_id      bigint PRIMARY KEY,
                                 name            varchar NOT NULL,
                                 price           numeric NOT NULL,
-                                currency        varchar NOT NULL,
+                                currency        varchar(3) NOT NULL,
                                 product_type    integer NOT NULL,
                                 creation_date   timestamp with time zone NULL default (now() at time zone 'utc')
                             );

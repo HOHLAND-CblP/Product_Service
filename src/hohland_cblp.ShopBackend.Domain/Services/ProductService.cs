@@ -21,7 +21,7 @@ public class ProductService : IProductService
 
     public async Task CreateProduct(Product product, CancellationToken token)
     {
-        return await _repository.Insert(produc);
+        return await _repository.Insert(product, token);
     }
 
     public async Task<bool> UpdateProductPrice(long id, float newPrice, CancellationToken token)
@@ -50,6 +50,11 @@ public class ProductService : IProductService
     {
         var product = await _repository.GetById(id);
         return product.ProductType;
+    }
+
+    Task<bool> IProductService.CreateProduct(Product product, CancellationToken token)
+    {
+        throw new NotImplementedException();
     }
 }
 

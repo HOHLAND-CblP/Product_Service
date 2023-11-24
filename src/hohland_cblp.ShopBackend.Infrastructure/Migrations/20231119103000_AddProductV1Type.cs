@@ -20,16 +20,12 @@ public class AddProductV1Type : Migration
                         IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'product_v1') THEN
                             CREATE TYPE product_v1 as
                             (
-                                  id                  bigint
-                                , task_id             bigint
-                                , parent_task_id      bigint
-                                , number              text
-                                , title               text
-                                , description         text
-                                , status              integer
-                                , assigned_to_user_id bigint
-                                , user_id             bigint
-                                , at                  timestamp with time zone
+                                  id                    bigint
+                                , name                  varchar
+                                , price                 numeric
+                                , currency              varchar(3)
+                                , product_type          integer
+                                , creation_date         timestamp with time zone
                             );
                         END IF;
                     END
