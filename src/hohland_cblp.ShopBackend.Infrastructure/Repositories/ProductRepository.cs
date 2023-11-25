@@ -1,5 +1,5 @@
 ﻿using hohland_cblp.ShopBackend.Domain.Entities;
-using hohland_cblp.ShopBackend.Domain.RepositoryContracts;
+using hohland_cblp.ShopBackend.Domain.Contracts.Repositories;
 using Ozon.Route256.Kafka.OrderEventConsumer.Infrastructure;
 
 
@@ -11,35 +11,37 @@ public class ProductRepository : PgRepository, IProductRepository
     {
     }
 
-    public Task<List<Product>> GetList(CancellationToken token)
+    public async Task<List<Product>> GetList(CancellationToken token)
     {
         throw new NotImplementedException();
     }
-    public Task<List<Product>> Get(List<long> ids, CancellationToken token) 
+    public async Task<List<Product>> GetList(List<long> ids, CancellationToken token) 
     {
         throw new NotImplementedException();
     }
-    public Task<Product> GetById(long id, CancellationToken token)
+    public async Task<Product> Get(long id, CancellationToken token)
     {
         throw new NotImplementedException();
     }
-    public Task<List<long>> Add(List<Product> products, CancellationToken token)
+    public async Task<List<long>> Add(List<Product> products, CancellationToken token)
     {
         throw new NotImplementedException();
     }
-    public Task<long> Insert(Product product, CancellationToken token)
+    public async Task<long> Add(Product product, CancellationToken token)
     {
         throw new NotImplementedException();
     }
-    public Task Update(Product product, CancellationToken token)
+    public async Task Update(Product product, CancellationToken token)
     {
         throw new NotImplementedException();
     }
-    public Task Delete(Product product, CancellationToken token)
+    
+    public async Task Delete(long id, CancellationToken token)
     {
         throw new NotImplementedException();
     }
-    public Task DeleteById(long id, CancellationToken token)
+    
+    public async Task Delete(List<long> ids, CancellationToken token)
     {
         throw new NotImplementedException();
     }

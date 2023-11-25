@@ -1,5 +1,5 @@
 ﻿using hohland_cblp.ShopBackend.Domain.Services;
-using hohland_cblp.ShopBackend.Domain.Services.Interfaces;
+using hohland_cblp.ShopBackend.Domain.Contracts.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace hohland_cblp.ShopBackend.Domain;

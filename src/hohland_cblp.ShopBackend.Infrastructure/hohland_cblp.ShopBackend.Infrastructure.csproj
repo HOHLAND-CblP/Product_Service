@@ -27,6 +27,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.14" />
         <PackageReference Include="Npgsql" Version="7.0.6" />
         <Protobuf Include="**\*.proto" Exclude="google\**" />
     </ItemGroup>

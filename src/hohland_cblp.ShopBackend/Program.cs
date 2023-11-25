@@ -1,12 +1,8 @@
 using System.Collections.Specialized;
 using hohland_cblp.ShopBackend.Domain;
-using hohland_cblp.ShopBackend.Domain.RepositoryContracts;
-using hohland_cblp.ShopBackend.Domain.Services;
-using hohland_cblp.ShopBackend.Domain.Services.Interfaces;
 using hohland_cblp.ShopBackend.Infrastructure;
 using hohland_cblp.ShopBackend.Infrastructure.GrpcServices;
 using hohland_cblp.ShopBackend.Infrastructure.Interceptors;
-using hohland_cblp.ShopBackend.Infrastructure.Repositories;
 
 class Program
 {
@@ -19,13 +15,7 @@ class Program
         var postgresConnectionString = appSetings.Get("PostgresConnectionString");
         if (String.IsNullOrEmpty(postgresConnectionString))
             throw new ArgumentNullException("PostgresConnectionString not set in app.settings");
-
-        services.AddGrpc(options =>
-            {
-                options.Interceptors.Add<ErrorInterceptor>();
-                options.Interceptors.Add<LogInterceptor>();
-            })
-            .AddJsonTranscoding();
+        
 
         services.AddAutoMapper(typeof(Program));
         services.AddGrpcSwagger();
