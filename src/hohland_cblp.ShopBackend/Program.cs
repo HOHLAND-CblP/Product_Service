@@ -2,7 +2,6 @@ using System.Collections.Specialized;
 using hohland_cblp.ShopBackend.Domain;
 using hohland_cblp.ShopBackend.Infrastructure;
 using hohland_cblp.ShopBackend.Infrastructure.GrpcServices;
-using hohland_cblp.ShopBackend.Infrastructure.Interceptors;
 
 class Program
 {

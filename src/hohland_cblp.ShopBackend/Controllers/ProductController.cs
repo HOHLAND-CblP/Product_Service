@@ -19,21 +19,35 @@ namespace hohland_cblp.ShopBackend.Controllers
         {
             return await _service.GetList(token);
         }
-
-        [HttpPost("[action]")]
-        public async Task<ActionResult<long>> Create([FromBody] Product product, CancellationToken token)
+        
+        [HttpGet("[action]")]
+        public async Task<ActionResult<List<Product>>> GetList(List<long> ids, CancellationToken token)
         {
-            return await _service.Create(product, token);
+            return await _service.GetList(ids, token);
         }
-
+        
         [HttpGet("[action]")]
         public async Task<ActionResult<Product>> Get(long id, CancellationToken token)
         {
             return await _service.Get(id, token);
         }
 
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ProductType>> GetProductType(long id, CancellationToken token)
+        {
+            return await _service.GetProductType(id, token);
+        }
+        
         [HttpPost("[action]")]
-        public async Task<ActionResult> Update([FromBody] Product product, CancellationToken token)
+        public async Task<ActionResult<long>> Create([FromBody] Product product, CancellationToken token)
+        {
+            return await _service.Create(product, token);
+        }
+
+        
+        
+        [HttpPost("[action]")]
+        public async Task Update([FromBody] Product product, CancellationToken token)
         {
             await _service.Update(product, token);
         }

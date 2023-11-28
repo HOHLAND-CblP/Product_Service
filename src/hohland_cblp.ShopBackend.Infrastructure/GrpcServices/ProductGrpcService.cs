@@ -2,7 +2,7 @@ using AutoMapper;
 using Grpc.Core;
 using ProductGrpc;
 using hohland_cblp.ShopBackend.Domain.Entities;
-using hohland_cblp.ShopBackend.Domain.Services.Interfaces;
+using hohland_cblp.ShopBackend.Domain.Contracts.Services;
 
 
 namespace hohland_cblp.ShopBackend.Infrastructure.GrpcServices;
@@ -21,7 +21,7 @@ public class ProductGrpcService : ProductGrpc.ProductGrpcService.ProductGrpcServ
     public override async Task<GetProductListResponse> GetProductList(GetProductListRequest request,
         ServerCallContext context)
     {
-        var result = await _service.GetProductsList();
+        var result = await _service.GetList(new CancellationToken());
 
         var resultGrpc = _mapper.Map<List<ProductModel>>(result);
 
@@ -37,7 +37,7 @@ public class ProductGrpcService : ProductGrpc.ProductGrpcService.ProductGrpcServ
         ServerCallContext context)
     {
         var product = _mapper.Map<Product>(request.Product);
-        var result = await _service.CreateProduct(product);
+        var result = await _service.Create(product, new CancellationToken());
 
         return _mapper.Map<CreateProductResponse>(result);
     }
@@ -45,7 +45,7 @@ public class ProductGrpcService : ProductGrpc.ProductGrpcService.ProductGrpcServ
     public override async Task<GetProductByIdResponse> GetProductById(GetProductByIdRequest request,
         ServerCallContext context)
     {
-        var result = await _service.GetProduct(request.Id);
+        var result = await _service.Get(request.Id, new CancellationToken());
 
         var resultGrpc = _mapper.Map<ProductModel>(result);
 
@@ -57,18 +57,18 @@ public class ProductGrpcService : ProductGrpc.ProductGrpcService.ProductGrpcServ
         return response;
     }
 
-    public override async Task<UpdateProductPriceResponse> UpdateProductPrice(UpdateProductPriceRequest request,
+    /*public override async Task<UpdateProductPriceResponse> UpdateProductPrice(UpdateProductPriceRequest request,
         ServerCallContext context)
     {
-        var result = await _service.UpdateProductPrice(request.Id, request.Price);
+        var result = await _service.Update(request.Id, new CancellationToken());
 
         return _mapper.Map<UpdateProductPriceResponse>(result);
-    }
+    }*/
 
-    public override async Task<DeleteByIdResponse> DeleteById(DeleteByIdRequest request, ServerCallContext context)
+    /*public override async Task<DeleteByIdResponse> DeleteById(DeleteByIdRequest request, ServerCallContext context)
     {
-        var result = await _service.DeleteProductById(request.Id);
+        var result = await _service.Delete(request.Id, new CancellationToken());
 
         return _mapper.Map<DeleteByIdResponse>(result);
-    }
+    }*/
 }
