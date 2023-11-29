@@ -1,5 +1,6 @@
 namespace hohland_cblp.ShopBackend.Domain.Entities;
 
+
 public record Product()
 {
     public long Id { get; init; }

@@ -1,4 +1,5 @@
 using FluentMigrator.Runner;
+using hohland_cblp.ShopBackend.Domain.Entities;
 using hohland_cblp.ShopBackend.Infrastructure.DataBaseEntities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -19,7 +20,7 @@ public static class Postgres
         var mapper = NpgsqlConnection.GlobalTypeMapper;
         Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         
-        mapper.MapComposite<ProductEntityV1>("user_v1", Translator);
+        mapper.MapComposite<Product>("product_v1", Translator);
     }
 
     /// <summary>

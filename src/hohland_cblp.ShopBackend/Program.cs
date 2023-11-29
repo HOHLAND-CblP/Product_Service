@@ -1,3 +1,4 @@
+using FluentMigrator.Runner;
 using System.Collections.Specialized;
 using hohland_cblp.ShopBackend.Domain;
 using hohland_cblp.ShopBackend.Infrastructure;
@@ -30,6 +31,15 @@ class Program
 
         var app = builder.Build();
 
+        if (args.Length > 0 && args[0].Equals("migrate", StringComparison.InvariantCultureIgnoreCase))
+        {
+            using var scope = app.Services.CreateScope();
+            var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+
+            runner.MigrateUp();
+            return;
+        }
+        
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -40,6 +50,7 @@ class Program
 
         app.MapControllers();
         app.MapGrpcService<ProductGrpcService>();
+        
         app.Run();
     }
 }

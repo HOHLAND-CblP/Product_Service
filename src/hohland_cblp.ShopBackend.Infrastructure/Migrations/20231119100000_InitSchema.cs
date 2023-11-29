@@ -7,16 +7,17 @@ public class InitSchema : Migration
 {
     public override void Up()
     {
-        const string sql = """
-                            CREATE TABLE IF NOT EXIST products (
-                                product_id      bigint PRIMARY KEY,
-                                name            varchar NOT NULL,
-                                price           numeric NOT NULL,
-                                currency        varchar(3) NOT NULL,
-                                product_type    integer NOT NULL,
-                                creation_date   timestamp with time zone NULL default (now() at time zone 'utc')
-                            );
-                           """;
+        const string sql = 
+            """
+            CREATE TABLE IF NOT EXISTS products (
+                id              bigint PRIMARY KEY,
+                name            varchar NOT NULL,
+                price           numeric NOT NULL,
+                currency        varchar(3) NOT NULL,
+                product_type    integer NOT NULL,
+                creation_date   timestamp with time zone NULL default (now() at time zone 'utc')
+            );
+            """;
  
         Execute.Sql(sql);
     }

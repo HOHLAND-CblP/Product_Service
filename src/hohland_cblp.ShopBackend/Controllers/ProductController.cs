@@ -20,8 +20,8 @@ namespace hohland_cblp.ShopBackend.Controllers
             return await _service.GetList(token);
         }
         
-        [HttpGet("[action]")]
-        public async Task<ActionResult<List<Product>>> GetList(List<long> ids, CancellationToken token)
+        [HttpPost("[action]")]
+        public async Task<ActionResult<List<Product>>> GetListByIds([FromBody] List<long> ids, CancellationToken token)
         {
             return await _service.GetList(ids, token);
         }
@@ -43,6 +43,12 @@ namespace hohland_cblp.ShopBackend.Controllers
         {
             return await _service.Create(product, token);
         }
+        
+        [HttpPost("[action]")]
+        public async Task<ActionResult<List<long>>> CreateSeveral([FromBody] List<Product> products, CancellationToken token)
+        {
+            return await _service.Create(products, token);
+        }
 
         
         
@@ -50,6 +56,18 @@ namespace hohland_cblp.ShopBackend.Controllers
         public async Task Update([FromBody] Product product, CancellationToken token)
         {
             await _service.Update(product, token);
+        }
+        
+        [HttpDelete("[action]")]
+        public async Task Delete(long id, CancellationToken token)
+        {
+            await _service.Delete(id, token);
+        }
+        
+        [HttpDelete("[action]")]
+        public async Task DeleteSeveral(List<long> ids, CancellationToken token)
+        {
+            await _service.Delete(ids, token);
         }
     }
 }
