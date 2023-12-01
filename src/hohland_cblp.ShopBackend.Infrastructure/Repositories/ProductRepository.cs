@@ -77,7 +77,7 @@ public class ProductRepository : PgRepository, IProductRepository
             """;
         
         await using var connection = await GetConnection();
-        return (await connection.QueryAsync<Product>(
+        return (await connection.ExecuteScalarAsync<Product>(
             new CommandDefinition(
                 sqlQuery ,
                 new

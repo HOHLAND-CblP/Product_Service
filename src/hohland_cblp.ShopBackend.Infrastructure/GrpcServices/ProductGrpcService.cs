@@ -27,7 +27,7 @@ public class ProductGrpcService : ProductGrpc.ProductGrpcService.ProductGrpcServ
 
         var response = new GetProductListResponse()
         {
-            Products = { resultGrpc }
+             Products = { resultGrpc }
         };
 
         return response;
