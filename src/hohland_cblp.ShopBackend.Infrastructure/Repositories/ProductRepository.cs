@@ -46,7 +46,7 @@ public class ProductRepository : PgRepository, IProductRepository
         
         var conditions = new List<string>();
         var @params = new DynamicParameters();
-        
+
         if (ids.Any())
         {
             conditions.Add($"id = ANY(@TaskIds)");
@@ -54,7 +54,7 @@ public class ProductRepository : PgRepository, IProductRepository
             sqlQuery += $" WHERE {string.Join(" AND ", conditions)}";
         }
 
-        
+
         await using var connection = await GetConnection();
         return (await connection.QueryAsync<Product>(
             new CommandDefinition(
@@ -88,15 +88,54 @@ public class ProductRepository : PgRepository, IProductRepository
     }
     public async Task<List<long>> Add(List<Product> products, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var sqlQuery =
+            """
+            LOCK TABLE sellers_accounting;
+            INSERT INTO products (name, price, currency, product_type, creation_date)
+                SELECT name, price, currency, product_type, creation_date
+                  FROM UNNEST(@Products)
+            returning id;
+            """;
+        
+        await using var connection = await GetConnection();
+        
+        return (await connection.QueryAsync<long>(
+            new CommandDefinition(
+                sqlQuery,
+                new
+                {
+                    Products = products
+                },
+                cancellationToken: token))).ToList();
     }
     public async Task<long> Add(Product product, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var sqlQuery =
+            """
+            LOCK TABLE sellers_accounting;
+            INSERT INTO products (name, price, currency, product_type, creation_date)
+                SELECT name, price, currency, product_type, creation_date
+                  FROM Product
+            returning id;
+            """;
+        
+        await using var connection = await GetConnection();
+        
+        return (await connection.QueryAsync<long>(
+            new CommandDefinition(
+                sqlQuery,
+                new
+                {
+                    Product = product
+                },
+                cancellationToken: token))).FirstOrDefault();
     }
     public async Task Update(Product product, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var sqlQuery =
+            """
+            
+            """;
     }
     
     public async Task Delete(long id, CancellationToken token)
