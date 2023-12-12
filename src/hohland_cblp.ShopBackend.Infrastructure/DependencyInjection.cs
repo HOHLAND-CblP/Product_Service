@@ -1,6 +1,6 @@
 ﻿using hohland_cblp.ShopBackend.Domain.Contracts.Repositories;
 using hohland_cblp.ShopBackend.Infrastructure.Interceptors;
-using hohland_cblp.ShopBackend.Infrastructure.PostgresInfrustructure;
+using hohland_cblp.ShopBackend.Infrastructure.PostgresInfrastructure;
 using hohland_cblp.ShopBackend.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 

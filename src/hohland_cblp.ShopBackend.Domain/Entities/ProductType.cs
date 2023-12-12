@@ -2,8 +2,8 @@ namespace hohland_cblp.ShopBackend.Domain.Entities;
 
 public enum ProductType
 {
-    General, 
-    HouseholdChemicals,
-    Appliances, 
-    Food
+    General = 0, 
+    HouseholdChemicals = 1,
+    Appliances = 2, 
+    Food = 3
 }

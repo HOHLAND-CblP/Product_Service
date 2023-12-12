@@ -24,9 +24,10 @@ public class InitSchema : Migration
 
     public override void Down() 
     {
-        const string sql = """
-                            DROP TABLE products;
-                           """;
+        const string sql = 
+            """
+            DROP TABLE products;
+            """;
         
         Execute.Sql(sql);
     }

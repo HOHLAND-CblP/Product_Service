@@ -1,12 +1,10 @@
 using FluentMigrator.Runner;
 using hohland_cblp.ShopBackend.Domain.Entities;
-using hohland_cblp.ShopBackend.Infrastructure.DataBaseEntities;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Npgsql;
 using Npgsql.NameTranslation;
 
-namespace hohland_cblp.ShopBackend.Infrastructure.PostgresInfrustructure;
+namespace hohland_cblp.ShopBackend.Infrastructure.PostgresInfrastructure;
 
 public static class Postgres
 {
@@ -21,6 +19,7 @@ public static class Postgres
         Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         
         mapper.MapComposite<Product>("product_v1", Translator);
+        mapper.MapEnum<ProductType>("product_type_v1");
     }
 
     /// <summary>
