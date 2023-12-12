@@ -88,35 +88,42 @@ public class ProductRepository : PgRepository, IProductRepository
     }
     public async Task<List<long>> Add(List<Product> products, CancellationToken token)
     {
+        var array = products.Select(product =>
+            $"ROW({product.Id}," +
+            $"'{product.Name}'," +
+            $"{product.Price}," +
+            $"'{product.Currency}'," +
+            $"{(int)product.ProductType}," +
+            $"'{product.CreationDate}')::product_v1").ToList();
+        
         var sqlQuery =
-            """
-            LOCK TABLE sellers_accounting;
-            INSERT INTO products (name, price, currency, product_type, creation_date)
-                SELECT name, price, currency, product_type, creation_date
-                  FROM UNNEST(@Products)
+            $"""
+            BEGIN WORK;
+            LOCK TABLE products;
+            INSERT INTO products (name, price, currency, product_type)
+                SELECT name, price, currency, product_type
+                  FROM UNNEST(ARRAY[{string.Join(", ",array)}])
             returning id;
+            COMMIT WORK;
             """;
         
         await using var connection = await GetConnection();
-        
+
         return (await connection.QueryAsync<long>(
             new CommandDefinition(
                 sqlQuery,
-                new
-                {
-                    Products = products
-                },
-                cancellationToken: token))).ToList();
+                cancellationToken:token))).ToList();
     }
     public async Task<long> Add(Product product, CancellationToken token)
     {
         var sqlQuery =
             """
-            LOCK TABLE sellers_accounting;
+            BEGIN WORK;
+            LOCK TABLE products;
             INSERT INTO products (name, price, currency, product_type, creation_date)
-                SELECT name, price, currency, product_type, creation_date
-                  FROM Product
+                VALUES @Name, @Price, @Currency, @ProductType, @CreationDate 
             returning id;
+            COMMIT WORK;
             """;
         
         await using var connection = await GetConnection();
@@ -126,7 +133,10 @@ public class ProductRepository : PgRepository, IProductRepository
                 sqlQuery,
                 new
                 {
-                    Product = product
+                    Name = product.Name,
+                    Price = product.Price,
+                    Currency = product.Currency,
+                    ProductType = product.ProductType
                 },
                 cancellationToken: token))).FirstOrDefault();
     }
@@ -134,17 +144,72 @@ public class ProductRepository : PgRepository, IProductRepository
     {
         var sqlQuery =
             """
-            
+            BEGIN WORK;
+            LOCK TABLE products;
+            UPDATE products
+               SET name = @Name
+                 , price = @Price
+                 , currency = @Currency
+                 , product_type = @ProductType
+             WHERE id = @Id;
+            COMMIT WORK;
             """;
+        
+        await using var connection = await GetConnection();
+        
+        await connection.ExecuteAsync(
+            new CommandDefinition(
+                sqlQuery,
+                new
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Currency = product.Currency,
+                    ProductType = product.ProductType,
+                },
+                cancellationToken: token));
     }
     
     public async Task Delete(long id, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var sqlQuery =
+            """
+            LOCK TABLE products;
+            DELETE FROM products
+             WHERE id = @Id
+            """;
+        
+        await using var connection = await GetConnection();
+        
+        await connection.ExecuteAsync(
+            new CommandDefinition(
+                sqlQuery,
+                new
+                {
+                    Id = id
+                },
+                cancellationToken: token));
     }
     
     public async Task Delete(List<long> ids, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var sqlQuery =
+            """
+            LOCK TABLE products;
+            DELETE FROM products
+             WHERE id = ANY(@Id)
+            """;
+        
+        await using var connection = await GetConnection();
+        
+        await connection.ExecuteAsync(
+            new CommandDefinition(
+                sqlQuery,
+                new
+                {
+                    Ids = ids
+                },
+                cancellationToken: token));
     }
 }

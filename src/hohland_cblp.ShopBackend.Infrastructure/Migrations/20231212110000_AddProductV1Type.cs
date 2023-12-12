@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace hohland_cblp.ShopBackend.Infrastructure.Migrations;
 
-[Migration(20231119103000, "Add ProductV1 Type")]
+[Migration(20231212110000, "Add ProductV1 Type")]
 public class AddProductV1Type : Migration
 {
     
