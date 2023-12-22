@@ -31,12 +31,5 @@
         <PackageReference Include="Npgsql" Version="7.0.6" />
         <Protobuf Include="**\*.proto" Exclude="google\**" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="Entities\**" />
-      <EmbeddedResource Remove="Entities\**" />
-      <None Remove="Entities\**" />
-      <Protobuf Remove="Entities\**" />
-    </ItemGroup>
     
 </Project>

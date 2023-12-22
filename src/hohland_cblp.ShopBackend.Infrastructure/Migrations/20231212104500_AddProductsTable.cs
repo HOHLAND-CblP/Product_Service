@@ -2,15 +2,15 @@
 
 namespace hohland_cblp.ShopBackend.Infrastructure.Migrations;
 
-[Migration(20231119100000, "Initial migration")]
-public class InitSchema : Migration
+[Migration(20231212104500, "Initial migration")]
+public class AddProductsTable : Migration
 {
     public override void Up()
     {
         const string sql = 
             """
             CREATE TABLE IF NOT EXISTS products (
-                id              bigint PRIMARY KEY,
+                id              bigserial PRIMARY KEY,
                 name            varchar NOT NULL,
                 price           numeric NOT NULL,
                 currency        varchar(3) NOT NULL,

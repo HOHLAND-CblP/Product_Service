@@ -17,7 +17,7 @@ public class ProductService : IProductService
 
     public async Task<List<Product>> GetList(CancellationToken token)
     {
-        return await _repository.GetList(token);
+        return await _repository.GetList(new List<long>(), token);
     }
 
     public async Task<List<Product>> GetList(List<long> ids, CancellationToken token)

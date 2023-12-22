@@ -8,13 +8,14 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace hohland_cblp.ShopBackend.Infrastructure.Migrations;
 
-[Migration(20231119103000, "Add ProductV1 Type")]
+[Migration(20231212110000, "Add ProductV1 Type")]
 public class AddProductV1Type : Migration
 {
     
     public override void Up()
     {
-        const string sql = """
+        const string sql = 
+                """
                 DO $$
                     BEGIN
                         IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'product_v1') THEN
@@ -37,13 +38,14 @@ public class AddProductV1Type : Migration
 
     public override void Down()
     {
-        const string sql = """
-                            DO $$
-                                BEGIN
-                                    DROP TYPE IF EXISTS product_v1;
-                                END
-                            $$;
-                            """;
+        const string sql = 
+            """
+            DO $$
+                BEGIN
+                    DROP TYPE IF EXISTS product_v1;
+                END
+            $$;
+            """;
 
         Execute.Sql(sql);
     }
