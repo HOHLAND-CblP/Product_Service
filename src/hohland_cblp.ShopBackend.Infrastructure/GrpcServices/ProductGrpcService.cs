@@ -4,7 +4,7 @@ using ProductGrpc;
 using hohland_cblp.ShopBackend.Domain.Entities;
 using hohland_cblp.ShopBackend.Domain.Contracts.Services;
 
-
+    
 namespace hohland_cblp.ShopBackend.Infrastructure.GrpcServices;
 
 public class ProductGrpcService : ProductGrpc.ProductGrpcService.ProductGrpcServiceBase
@@ -22,7 +22,8 @@ public class ProductGrpcService : ProductGrpc.ProductGrpcService.ProductGrpcServ
         ServerCallContext context)
     {
         var result = await _service.GetList(new CancellationToken());
-
+        
+        
         var resultGrpc = _mapper.Map<List<ProductModel>>(result);
 
         var response = new GetProductListResponse()
@@ -38,7 +39,7 @@ public class ProductGrpcService : ProductGrpc.ProductGrpcService.ProductGrpcServ
     {
         var product = _mapper.Map<Product>(request.Product);
         var result = await _service.Create(product, new CancellationToken());
-
+        ProductModel.Types
         return _mapper.Map<CreateProductResponse>(result);
     }
 

@@ -9,22 +9,37 @@ service ProductGrpcService
 			get: "/api/v1/product/get_list"
 		};
 	};
+	rpc GetProductListByIds (GetProductListByIdsRequest) returns (GetProductListByIdsResponse)	{
+		option (google.api.http) = {
+			get: "/api/v1/product/get_list"
+		};
+	};
+	
+	rpc GetProduct (GetProductRequest) returns (GetProductResponse)	{
+		option (google.api.http) = {
+			get: "/api/v1/product/get"
+		};
+	};
+	rpc GetProductType (GetProductTypeRequest) returns (GetProductTypeResponse) {
+
+	};
 	rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse) {
 		option (google.api.http) = {
 			post: "/api/v1/product/create"
 		};
 	};
-	rpc GetProductById (GetProductByIdRequest) returns (GetProductByIdResponse)	{
+	rpc CreateSeveralProducts (CreateSeveralProductsRequest) returns (CreateSeveralProductsResponse) {
 		option (google.api.http) = {
-			get: "/api/v1/product/get"
+			post: "/api/v1/product/create"
 		};
 	};
-	rpc UpdateProductPrice (UpdateProductPriceRequest) returns (UpdateProductPriceResponse)	{
+	
+	rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse)	{
 		option (google.api.http) = {
 			post: "/api/v1/product/update_price"
 		};
-	};
-	rpc DeleteById (DeleteByIdRequest) returns (DeleteByIdResponse)	{
+	};	
+	rpc Delete (DeleteRequest) returns (DeleteResponse)	{
 		option (google.api.http) = {
 			delete: "/api/v1/product/delete_by_id"
 		};
@@ -32,67 +47,86 @@ service ProductGrpcService
 }
 
 message GetProductListRequest {}
-
 message GetProductListResponse 
 {
-	repeated ProductModel products = 1;
+	repeated ProductGrpc_v1 products = 1;
+}
+
+message GetProductListByIdsRequest
+{
+	repeated int64 ids = 1;
+}
+message GetProductListByIdsResponse
+{
+	repeated ProductGrpc_v1 products = 1;
+}
+
+
+message GetProductRequest
+{
+	int64 id = 1;
+}
+message GetProductResponse
+{
+	ProductGrpc_v1 product = 1;
+}
+
+message GetProductTypeRequest
+{
+	
+}
+message GetProductTypeResponse
+{
+	
 }
 
 message CreateProductRequest
 {
-	ProductModel product = 1;
+	repeated ProductGrpc_v1 product = 1;
 }
-
 message CreateProductResponse
 {
-	bool result = 1;
+	repeated int64 ids = 1;
 }
 
-message GetProductByIdRequest
-{
-	int64 id = 1;
-}
 
-message GetProductByIdResponse
-{
-	ProductModel product = 1;
-}
 
-message UpdateProductPriceRequest
+message UpdateProductRequest
 {
 	int64 id = 1;
 	float price = 2;
 }
 
-message UpdateProductPriceResponse
+message UpdateProductResponse
 {
 	bool result = 1;
 }
 
-message DeleteByIdRequest
+message DeleteRequest
 {
 	int64 id = 1;
 }
 
-message DeleteByIdResponse
+message DeleteResponse
 {
 	bool result = 1;
 }
 
-message ProductModel
+
+message ProductGrpc_v1
 {
 	int64 id = 1;
 	string name = 2;
-	float price = 3;
-	float weight = 4;
-	ProductTypeModel product_type = 5;
+	double price = 3;
+	string currency = 4;
+	ProductTypeGrpc_v1 product_type = 5;
 	string creation_date = 6;
-	int64 warehouse_id = 7;
 }
 
-enum ProductTypeModel
+
+enum ProductTypeGrpc_v1
 {
-	General = 0;
+		General = 0;
     HouseholdChemicals = 1;
     Appliances = 2;
     Food = 3;
