@@ -61,7 +61,7 @@ namespace hohland_cblp.ShopBackend.Controllers
         [HttpDelete("[action]")]
         public async Task Delete(long id, CancellationToken token)
         {
-            await _service.Delete(id, token);
+            await _service.Delete(new List<long>{id}, token);
         }
         
         [HttpDelete("[action]")]

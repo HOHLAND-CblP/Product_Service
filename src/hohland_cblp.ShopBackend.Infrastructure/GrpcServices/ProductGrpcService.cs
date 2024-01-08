@@ -18,58 +18,103 @@ public class ProductGrpcService : ProductGrpc.ProductGrpcService.ProductGrpcServ
         _mapper = mapper;
     }
 
-    public override async Task<GetProductListResponse> GetProductList(GetProductListRequest request,
-        ServerCallContext context)
+    public override async Task<GetListResponse> GetList(GetListRequest request, ServerCallContext context)
     {
-        var result = await _service.GetList(new CancellationToken());
-        
-        
-        var resultGrpc = _mapper.Map<List<ProductModel>>(result);
-
-        var response = new GetProductListResponse()
+        var products = await _service.GetList(new CancellationToken());
+        var result = new GetListResponse
         {
-             Products = { resultGrpc }
+            Products = { _mapper.Map<List<ProductGrpc_v1>>(products) }
         };
-
-        return response;
+        return result;
     }
 
-    public override async Task<CreateProductResponse> CreateProduct(CreateProductRequest request,
-        ServerCallContext context)
+    public override async Task<GetListByIdsResponse> GetListByIds(GetListByIdsRequest request, ServerCallContext context)
     {
-        var product = _mapper.Map<Product>(request.Product);
-        var result = await _service.Create(product, new CancellationToken());
-        ProductModel.Types
-        return _mapper.Map<CreateProductResponse>(result);
-    }
-
-    public override async Task<GetProductByIdResponse> GetProductById(GetProductByIdRequest request,
-        ServerCallContext context)
-    {
-        var result = await _service.Get(request.Id, new CancellationToken());
-
-        var resultGrpc = _mapper.Map<ProductModel>(result);
-
-        var response = new GetProductByIdResponse()
+        var products = await _service.GetList(request.Ids.ToList(), new CancellationToken());
+        var result = new GetListByIdsResponse
         {
-            Product = resultGrpc
+            Products = { _mapper.Map<List<ProductGrpc_v1>>(products) }
         };
-
-        return response;
+        return result;
     }
 
-    /*public override async Task<UpdateProductPriceResponse> UpdateProductPrice(UpdateProductPriceRequest request,
-        ServerCallContext context)
+    public override async Task<GetResponse> Get(GetRequest request, ServerCallContext context)
     {
-        var result = await _service.Update(request.Id, new CancellationToken());
+        var product = await _service.Get(request.Id, new CancellationToken());
+        var result = new GetResponse
+        {
+            Product = _mapper.Map<ProductGrpc_v1>(product)
+        };
+        return result;
+    }
 
-        return _mapper.Map<UpdateProductPriceResponse>(result);
-    }*/
-
-    /*public override async Task<DeleteByIdResponse> DeleteById(DeleteByIdRequest request, ServerCallContext context)
+    public override async Task<GetProductTypeResponse> GetProductType(GetProductTypeRequest request, ServerCallContext context)
     {
-        var result = await _service.Delete(request.Id, new CancellationToken());
+        var type = await _service.GetProductType(request.Id, new CancellationToken());
+        var result = new GetProductTypeResponse
+        {
+            Type = (ProductTypeGrpc_v1)type
+        };
+        return result;
+    }
 
-        return _mapper.Map<DeleteByIdResponse>(result);
-    }*/
+    public override async Task<CreateResponse> Create(CreateRequest request, ServerCallContext context)
+    {
+        var id = await _service.Create(_mapper.Map<Product>(request.Product), new CancellationToken());
+        var result = new CreateResponse
+        {
+            Id = id
+        };
+        return result;
+    }
+
+    public override async Task<CreateSeveralResponse> CreateSeveral(CreateSeveralRequest request, ServerCallContext context)
+    {
+        var ids = await _service.Create(_mapper.Map<List<Product>>(request.Products), new CancellationToken());
+        var result = new CreateSeveralResponse
+        {
+            Ids = { ids }
+        };
+        return result;
+    }
+
+    public override async Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
+    {
+        try
+        {
+            await _service.Update(_mapper.Map<Product>(request.Product), new CancellationToken());
+        }
+        catch (Exception e)
+        {
+            return new UpdateResponse { Result = false };
+        }
+        
+        return new UpdateResponse { Result = true };
+    }
+
+    public override async Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)
+    {
+        try
+        {
+            await _service.Delete(request.Id, new CancellationToken());
+        }
+        catch (Exception e)
+        {
+            return new DeleteResponse { Result = false };
+        }
+        return new DeleteResponse { Result = true };
+    }
+
+    public override async Task<DeleteSeveralResponse> DeleteSeveral(DeleteSeveralRequest request, ServerCallContext context)
+    {
+        try
+        {
+            await _service.Delete(request.Ids.ToList(), new CancellationToken());
+        }
+        catch (Exception e)
+        {
+            return new DeleteSeveralResponse { Result = false };
+        }
+        return new DeleteSeveralResponse { Result = true };
+    }
 }

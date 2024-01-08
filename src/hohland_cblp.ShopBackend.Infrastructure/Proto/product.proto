@@ -4,18 +4,18 @@ package product_grpc;
 
 service ProductGrpcService
 {
-	rpc GetProductList (GetProductListRequest) returns (GetProductListResponse)	{
+	rpc GetList (GetListRequest) returns (GetListResponse)	{
 		option (google.api.http) = {
 			get: "/api/v1/product/get_list"
 		};
 	};
-	rpc GetProductListByIds (GetProductListByIdsRequest) returns (GetProductListByIdsResponse)	{
+	rpc GetListByIds (GetListByIdsRequest) returns (GetListByIdsResponse)	{
 		option (google.api.http) = {
 			get: "/api/v1/product/get_list"
 		};
 	};
 	
-	rpc GetProduct (GetProductRequest) returns (GetProductResponse)	{
+	rpc Get (GetRequest) returns (GetResponse)	{
 		option (google.api.http) = {
 			get: "/api/v1/product/get"
 		};
@@ -23,18 +23,17 @@ service ProductGrpcService
 	rpc GetProductType (GetProductTypeRequest) returns (GetProductTypeResponse) {
 
 	};
-	rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse) {
+	rpc Create (CreateRequest) returns (CreateResponse) {
 		option (google.api.http) = {
 			post: "/api/v1/product/create"
 		};
 	};
-	rpc CreateSeveralProducts (CreateSeveralProductsRequest) returns (CreateSeveralProductsResponse) {
+	rpc CreateSeveral (CreateSeveralRequest) returns (CreateSeveralResponse) {
 		option (google.api.http) = {
 			post: "/api/v1/product/create"
 		};
 	};
-	
-	rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse)	{
+	rpc Update (UpdateRequest) returns (UpdateResponse)	{
 		option (google.api.http) = {
 			post: "/api/v1/product/update_price"
 		};
@@ -44,60 +43,70 @@ service ProductGrpcService
 			delete: "/api/v1/product/delete_by_id"
 		};
 	};;
+	rpc DeleteSeveral (DeleteSeveralRequest) returns (DeleteSeveralResponse)	{
+		option (google.api.http) = {
+			delete: "/api/v1/product/delete_by_id"
+		};
+	};;
 }
 
-message GetProductListRequest {}
-message GetProductListResponse 
+message GetListRequest {}
+message GetListResponse 
 {
 	repeated ProductGrpc_v1 products = 1;
 }
 
-message GetProductListByIdsRequest
+message GetListByIdsRequest
 {
 	repeated int64 ids = 1;
 }
-message GetProductListByIdsResponse
+message GetListByIdsResponse
 {
 	repeated ProductGrpc_v1 products = 1;
 }
 
 
-message GetProductRequest
+message GetRequest
 {
 	int64 id = 1;
 }
-message GetProductResponse
+message GetResponse
 {
 	ProductGrpc_v1 product = 1;
 }
 
 message GetProductTypeRequest
 {
-	
+	int64 id = 1;
 }
 message GetProductTypeResponse
 {
-	
+	ProductTypeGrpc_v1 type = 1;
 }
 
-message CreateProductRequest
+message CreateRequest
 {
-	repeated ProductGrpc_v1 product = 1;
+	ProductGrpc_v1 product = 1;
 }
-message CreateProductResponse
+message CreateResponse
+{
+	int64 id = 1;
+}
+
+message CreateSeveralRequest
+{
+	repeated ProductGrpc_v1 products = 1;
+}
+message CreateSeveralResponse
 {
 	repeated int64 ids = 1;
 }
 
-
-
-message UpdateProductRequest
+message UpdateRequest
 {
-	int64 id = 1;
-	float price = 2;
+	ProductGrpc_v1 product = 1;
 }
-
-message UpdateProductResponse
+message UpdateResponse
 {
 	bool result = 1;
 }
@@ -106,8 +115,16 @@ message DeleteRequest
 {
 	int64 id = 1;
 }
-
 message DeleteResponse
+{
+	bool result = 1;
+}
+
+message DeleteSeveralRequest
+{
+	repeated int64 ids = 1;
+}
+message DeleteSeveralResponse
 {
 	bool result = 1;
 }
