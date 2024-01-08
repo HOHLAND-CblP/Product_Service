@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>hohland_cblp.ShopBackend</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\hohland_cblp.ShopBackend.Domain\hohland_cblp.ShopBackend.Domain.csproj" />
+      <ProjectReference Include="..\hohland_cblp.ShopBackend.Infrastructure\hohland_cblp.ShopBackend.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="12.0.1" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.3.11"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+    </ItemGroup>
+
+</Project>

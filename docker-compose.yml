@@ -1,10 +1,10 @@
 services:
   postgresql:
     image: postgres
-    container_name: postgres-product-service
+    container_name: postgres-shop-db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: product_service
+      POSTGRES_DB: shop_db
     ports:
       - 15432:5432
